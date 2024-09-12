@@ -19,6 +19,11 @@ clean: ## Clean the binary file application
 	$(call print-target)
 	@rm -rf bin
 
+.PHONY: github-validate
+github-validate: ## Run act to validate github actions
+	$(call print-target)
+	@act -n
+
 define print-target
     @printf "Executing target: \033[36m$@\033[0m\n"
 endef
