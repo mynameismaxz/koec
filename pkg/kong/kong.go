@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"slices"
 
 	"github.com/Kong/go-pdk"
 	"github.com/mynameismaxz/koec/templates"
@@ -30,7 +31,11 @@ func (c *Config) Access(kong *pdk.PDK) {
 		return
 	}
 
-	if c.contains(c.ResponseCode, respCode) {
+	idx := slices.IndexFunc(c.ResponseCode, func(i int) bool {
+		return i == respCode
+	})
+
+	if idx != -1 {
 		tmpl, err := template.New("error").Parse(templates.ErrorPageLayout)
 		if err != nil {
 			kong.Log.Err(err.Error())
@@ -52,14 +57,8 @@ func (c *Config) Access(kong *pdk.PDK) {
 		kong.Response.ClearHeader("Content-Type")
 		kong.Response.SetHeader("Content-Type", "text/html; charset=utf-8")
 		kong.Response.Exit(respCode, body, nil)
+	} else {
+		kong.Log.Err(fmt.Sprintf("Response code %d is not in the list", respCode))
+		return
 	}
-}
-
-func (c *Config) contains(s []int, e int) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
 }

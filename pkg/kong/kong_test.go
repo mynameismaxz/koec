@@ -156,3 +156,21 @@ func TestRequestError(t *testing.T) {
 		assert.NotContains(t, string(env.ClientRes.Body), "<!DOCTYPE html>")
 	})
 }
+
+func BenchmarkAccess(b *testing.B) {
+	env, err := test.New(&testing.T{}, test.Request{
+		Method: http.MethodGet,
+	})
+	assert.NoError(b, err)
+
+	// mocking status
+	env.ClientRes.Status = http.StatusNotFound
+	c := &Config{
+		ResponseCode: []int{http.StatusNotFound, http.StatusInternalServerError},
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		env.DoAccess(c)
+	}
+}
