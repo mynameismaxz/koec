@@ -43,9 +43,10 @@ func (c *Config) Access(kong *pdk.PDK) {
 		}
 
 		bodyResp := &templates.TemplatePayload{
-			Title:   http.StatusText(respCode),
-			Message: fmt.Sprintf("Oh no! Something went wrong. Error code: %d", respCode),
-			TraceId: traceId,
+			Title:      http.StatusText(respCode),
+			Message:    fmt.Sprintf("Oh no! Something went wrong. Error code: %d", respCode),
+			TraceId:    traceId,
+			StatusCode: respCode,
 		}
 
 		body, err := bodyResp.ToBytes(tmpl)
