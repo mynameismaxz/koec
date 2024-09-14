@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-
 	"github.com/Kong/go-pdk/server"
 	"github.com/mynameismaxz/koec/pkg/kong"
 )
@@ -13,7 +11,5 @@ const (
 )
 
 func main() {
-	if err := server.StartServer(kong.New, Version, Priority); err != nil {
-		os.Exit(1)
-	}
+	server.StartServer(kong.New, Version, Priority)
 }
