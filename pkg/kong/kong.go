@@ -18,6 +18,10 @@ func New() interface{} {
 	return &Config{}
 }
 
+const (
+	ERROR_INDEX_NOT_FOUND = -1
+)
+
 func (c *Config) Access(kong *pdk.PDK) {
 	// get response code from upstream
 	respCode, err := kong.Response.GetStatus()
@@ -35,7 +39,7 @@ func (c *Config) Access(kong *pdk.PDK) {
 		return i == respCode
 	})
 
-	if idx != -1 {
+	if idx != ERROR_INDEX_NOT_FOUND {
 		tmpl, err := template.New("error").Parse(templates.ErrorPageLayout)
 		if err != nil {
 			kong.Log.Err(err.Error())
