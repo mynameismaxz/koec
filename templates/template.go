@@ -6,9 +6,10 @@ import (
 )
 
 type TemplatePayload struct {
-	Title   string
-	Message string
-	TraceId string
+	Title      string
+	Message    string
+	TraceId    string
+	StatusCode int
 }
 
 func (t *TemplatePayload) ToBytes(tmpl *template.Template) ([]byte, error) {
