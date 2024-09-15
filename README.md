@@ -1,4 +1,12 @@
-# KOEC, KOng Error Customization
+# KOEC, KOng Error Customization (Status: Under Development)
+
+## Status
+
+We're currently facing an issue with the [PDK (Plugin Development Kit)](https://pkg.go.dev/github.com/Kong/go-pdk), specifically around locating the method to retrieve the response code for upstream handling. We're working to resolve this as quickly as possible and will resume development shortly. We apologize for the delay and appreciate your patience.
+
+As the famous quote from Thomas Edison goes, "Genius is one percent inspiration, ninety-nine percent perspiration." We're in the hard-working phase but will get things back on track soon!
+
+**And** if you have any suggestions on how to retrieve the response code from upstream within the `Access(kong *pdk.PDK)` method, feel free to share them. We're open to discussing potential solutions and setting a clear direction for improving this aspect of the project. Your input could help accelerate the progress and ensure we're heading in the right direction.
 
 ## Description
 
