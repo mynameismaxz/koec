@@ -1,0 +1,26 @@
+name: build-push-ghcr
+on:
+  push:
+    branches:
+      - dev
+    tags:
+      - 'v*-*-*'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.22'
+
+      - name: Run tests
+        run: go test ./...
